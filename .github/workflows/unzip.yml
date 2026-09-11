@@ -1,0 +1,25 @@
+name: Unzip Files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Unzip
+        run: |
+          unzip -o Freegetwayscriptbyhostfather.zip -d .
+          rm Freegetwayscriptbyhostfather.zip
+
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Extract ZIP files" || echo "No changes"
+          git push
